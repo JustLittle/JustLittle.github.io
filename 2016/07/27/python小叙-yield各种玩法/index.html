@@ -1,0 +1,627 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="python yield," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="LY.Qiao" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="关于思考
+
+前段时间刚用完scrapy刚抓完豆瓣和12306，发现yield在scrapy中被大量的引用，层层递进都是依靠yield作为返回。作为小白的我之前是不会玩yield这个高大上的东西，好吧，是我太菜了，主要是无法联想到什么应用场景😢。
+1234def parse(self,response):      for href in response.css(&quot;.l_title a::at">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python小叙-yield各种玩法">
+<meta property="og:url" content="http://liangyouqiao.me/2016/07/27/python小叙-yield各种玩法/index.html">
+<meta property="og:site_name" content="LY.Qiao">
+<meta property="og:description" content="关于思考
+
+前段时间刚用完scrapy刚抓完豆瓣和12306，发现yield在scrapy中被大量的引用，层层递进都是依靠yield作为返回。作为小白的我之前是不会玩yield这个高大上的东西，好吧，是我太菜了，主要是无法联想到什么应用场景😢。
+1234def parse(self,response):      for href in response.css(&quot;.l_title a::at">
+<meta property="og:updated_time" content="2016-08-02T03:12:07.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python小叙-yield各种玩法">
+<meta name="twitter:description" content="关于思考
+
+前段时间刚用完scrapy刚抓完豆瓣和12306，发现yield在scrapy中被大量的引用，层层递进都是依靠yield作为返回。作为小白的我之前是不会玩yield这个高大上的东西，好吧，是我太菜了，主要是无法联想到什么应用场景😢。
+1234def parse(self,response):      for href in response.css(&quot;.l_title a::at">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://liangyouqiao.me/2016/07/27/python小叙-yield各种玩法/"/>
+
+  <title> python小叙-yield各种玩法 | LY.Qiao </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">LY.Qiao</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Goals determine what you are going to be</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tag"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                python小叙-yield各种玩法
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-27T16:40:00+08:00" content="2016-07-27">
+              2016-07-27
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>关于思考</p>
+</blockquote>
+<p>前段时间刚用完scrapy刚抓完豆瓣和12306，发现yield在scrapy中被大量的引用，层层递进都是依靠yield作为返回。作为小白的我之前是不会玩yield这个高大上的东西，好吧，是我太菜了，主要是无法联想到什么应用场景😢。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">parse</span><span class="params">(self,response)</span>:</span></div><div class="line">      <span class="keyword">for</span> href <span class="keyword">in</span> response.css(<span class="string">".l_title a::attr(href)"</span>):</div><div class="line">           full_url = response.urljoin(href.extract())</div><div class="line">           <span class="keyword">yield</span> scrapy.Request(full_url,callback=self.parse_question)</div></pre></td></tr></table></figure>
+<p>在scrapy中yield被用来返回下一层的callback，不得不说scrapy在这里使用yield的方法真是nb，当爬虫的深度加大的时候，yield作用会凸显的很明显，想象一下</p>
+<blockquote>
+<p>有一个n层的循环，如果你想要看最后一层n的运算结果，可以呀，那就是用n-1层for呗（当然我里不考虑合理的数据结构来降低程序的复杂度），</p>
+</blockquote>
+<p>当运行到n-2层的时候，卧槽，出问题了，那怎么办！！调试完需要等n－3循环完。。什么鬼,数据量一大，简直了不知道什么时候可以看到结果</p>
+<p>如果每一层都用yield来返回，n层有n个yield，那么只要一次你就可以看到n层的循环中的结果，哈哈，看了很屌,下面来个类似的demo，同样是循环，用yield实现出来是另一种感觉有木有</p>
+<blockquote>
+<p>让我们来一个例子，求lis = [[“abcddsadasdasda”,”asdqwdqwdasdasda”],[“zxczxczx”,”vfdsvsdvsd”],[“asdascascsdcscscdsdc”],[“ascdsfsdfcascda”]]这个list种所有a的位置</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div></pre></td><td class="code"><pre><div class="line">encoding: utf<span class="number">-8</span></div><div class="line"><span class="string">'''</span></div><div class="line">Created Time: 三  7/27 08:23:01 2016</div><div class="line">mail: liangyou.qiao@shuyun.com</div><div class="line">Author: liangyou.qiao</div><div class="line">File Name: yield_old.py</div><div class="line">'''</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">find_index</span><span class="params">(input_data)</span>:</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">send_back</span><span class="params">(func)</span>:</span></div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span><span class="params">(*a,**kwd)</span>:</span></div><div class="line">            g = func(*a,**kwd)</div><div class="line">            g.send(<span class="keyword">None</span>)</div><div class="line">            <span class="keyword">return</span> g</div><div class="line"></div><div class="line">        <span class="keyword">return</span> wrapper</div><div class="line"></div><div class="line"><span class="meta">    @send_back</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">sign</span><span class="params">(target)</span>:</span></div><div class="line"></div><div class="line">        <span class="keyword">while</span> <span class="keyword">True</span>:</div><div class="line">            words = <span class="keyword">yield</span></div><div class="line">            <span class="keyword">for</span> w <span class="keyword">in</span> words:</div><div class="line">                print(<span class="string">"i am in callback_1 %s"</span>%w)</div><div class="line">                target.send(w)</div><div class="line">            <span class="comment">#target.send(None)</span></div><div class="line"></div><div class="line"><span class="meta">    @send_back</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">sort</span><span class="params">(target)</span>:</span></div><div class="line">        <span class="keyword">while</span> <span class="keyword">True</span>:</div><div class="line">            word = <span class="keyword">yield</span></div><div class="line"></div><div class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> word:</div><div class="line">                print(<span class="string">"i am in callback_2 %s"</span>%i)</div><div class="line">                target.send(i)</div><div class="line"><span class="meta">    @send_back</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">squash</span><span class="params">(label)</span>:</span></div><div class="line">        <span class="keyword">while</span> <span class="keyword">True</span>:</div><div class="line">            word_list = <span class="keyword">yield</span></div><div class="line">            lis = list(word_list)</div><div class="line">            str_word = [ (i,label) <span class="keyword">for</span> i <span class="keyword">in</span> xrange(len(lis)) <span class="keyword">if</span> lis[i] == label ]</div><div class="line">            <span class="keyword">print</span> <span class="string">"i am callback 3"</span>,str_word</div><div class="line">            <span class="comment">#for x in word_list:</span></div><div class="line">            <span class="comment">#    print("i am in callback_3 %s"%x)</span></div><div class="line"></div><div class="line">    <span class="keyword">print</span> input_data</div><div class="line">    sign(sort(squash(<span class="string">"a"</span>))).send(input_data)</div><div class="line">    <span class="keyword">return</span></div><div class="line"></div><div class="line">   </div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</div><div class="line"></div><div class="line">    lis = [[<span class="string">"abcddsadasdasda"</span>,<span class="string">"asdqwdqwdasdasda"</span>],[<span class="string">"zxczxczx"</span>,<span class="string">"vfdsvsdvsd"</span>],[<span class="string">"asdascascsdcscscdsdc"</span>],[<span class="string">"ascdsfsdfcascda"</span>]]</div><div class="line"></div><div class="line">    result = find_index(lis)</div></pre></td></tr></table></figure>
+<blockquote>
+<p>使用yield是实现生产者消费者的多并发</p>
+</blockquote>
+<p>使用yield就可以让函数变成一个生成器，那么根据这一点，就可以实现一种类似生产者消费者模型的方法,多个consumer执行同一个生成器的实例,用next()方法获取数据,终于在同事的大力帮忙之下，写出了这个demo，</p>
+<blockquote>
+<p>只需要把循环体转化成生成器，在不使用queue的情况下，实现了p/c的模型</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># -*- coding: utf-8 -*-</span></div><div class="line"><span class="string">'''</span></div><div class="line">File Name: muti.py</div><div class="line">Author: WillDX</div><div class="line">mail: xiang.dai@shuyun.com</div><div class="line">Created Time: 2016年07月19日 星期二 11时02分21秒</div><div class="line">i'''</div><div class="line"><span class="keyword">import</span> sys</div><div class="line"><span class="keyword">import</span> time</div><div class="line"><span class="keyword">from</span> threading <span class="keyword">import</span> *</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Consumer</span><span class="params">(Thread)</span>:</span></div><div class="line">    <span class="string">"""继承Thread方法,并重写__init__()方法和run()方法"""</span></div><div class="line">    __produce = <span class="keyword">None</span></div><div class="line">    __func = <span class="keyword">None</span></div><div class="line">    __results = []</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, group=None, target=None, name=None,args=<span class="params">()</span>, kwargs=None, verbose=None)</span>:</span></div><div class="line">        super(Consumer, self).__init__(group, target, name, args, kwargs, verbose)</div><div class="line">        self.__args = args</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="keyword">try</span>:</div><div class="line">            <span class="keyword">while</span> <span class="keyword">True</span>:</div><div class="line">                params = Consumer.__produce.next()</div><div class="line">                <span class="comment">#print "params:",params,type(params)</span></div><div class="line">                obj = Consumer()</div><div class="line">                res = obj.__func(**params)</div><div class="line">                Consumer.__results.extend(res)</div><div class="line">                <span class="comment">#print "[线程名]:%s;[参数]:%s;[返回值]:%s"%(currentThread().name,params,res)</span></div><div class="line">        <span class="keyword">except</span> ValueError <span class="keyword">as</span> e:</div><div class="line">            <span class="keyword">print</span> e</div><div class="line">        <span class="keyword">except</span> StopIteration <span class="keyword">as</span> e:</div><div class="line">            <span class="comment">#print "finished:%s" % currentThread().name</span></div><div class="line">            <span class="keyword">print</span> e</div><div class="line"></div><div class="line"><span class="meta">    @classmethod</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add_produce</span><span class="params">(cls,produce)</span>:</span></div><div class="line">        cls.__produce=produce</div><div class="line">        <span class="keyword">return</span> cls()</div><div class="line"></div><div class="line"><span class="meta">    @classmethod</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">set_func</span><span class="params">(cls,func)</span>:</span></div><div class="line">        cls.__func = staticmethod(func)</div><div class="line"></div><div class="line"><span class="meta">    @classmethod</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_result</span><span class="params">(cls)</span>:</span></div><div class="line">        <span class="keyword">return</span> cls.__results</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(i)</span>:</span></div><div class="line">    <span class="keyword">return</span> [i + <span class="number">10000</span>]</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></div><div class="line">    produce = ( &#123;<span class="string">"i"</span>:i&#125; <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">30</span>))</div><div class="line">    <span class="comment">#执行</span></div><div class="line">    mp = ( Consumer() <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>))</div><div class="line">    Consumer.add_produce(produce)</div><div class="line">    Consumer.set_func(func)</div><div class="line">    tsk = []</div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> mp:</div><div class="line">        i.start()</div><div class="line">        tsk.append(i)</div><div class="line">    <span class="keyword">for</span> t <span class="keyword">in</span> tsk:</div><div class="line">        t.join()</div><div class="line">    res = Consumer.get_result()</div><div class="line">    <span class="keyword">print</span> res,len(res)</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</div><div class="line">    main()</div></pre></td></tr></table></figure>
+<blockquote>
+<p>关于问题</p>
+</blockquote>
+<pre><code>1.    多个线程同时操作yield，yield是否是线程安全的？
+2.    在使用send给yield发送数据的时候，为什么第一次要传送None
+</code></pre>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python-yield/" rel="tag">#python yield</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/06/28/github/" rel="next" title="Git 使用文档">
+                <i class="fa fa-chevron-left"></i> Git 使用文档
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Joe." />
+          <p class="site-author-name" itemprop="name">Joe.</p>
+          <p class="site-description motion-element" itemprop="description">这世界要是没有爱情，它在我们心中还会有什么意义！这就如一盏没有亮光的走马灯。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Joe.</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

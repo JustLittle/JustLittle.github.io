@@ -1,0 +1,715 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="github," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="LY.Qiao" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="git的家目录在当前用户家目录:.git/
+
+GIT使用介绍
+
+1.git help -a    查询出git下面的功能介绍    1.1.git help +func(查询详细功能使用)
+2.git –version    查询出git当前使用的版本
+3.git config –global user.name “liangyou.qiao”    设置用户名
+4.git config –gl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git 使用文档">
+<meta property="og:url" content="http://liangyouqiao.me/2016/06/28/github/index.html">
+<meta property="og:site_name" content="LY.Qiao">
+<meta property="og:description" content="git的家目录在当前用户家目录:.git/
+
+GIT使用介绍
+
+1.git help -a    查询出git下面的功能介绍    1.1.git help +func(查询详细功能使用)
+2.git –version    查询出git当前使用的版本
+3.git config –global user.name “liangyou.qiao”    设置用户名
+4.git config –gl">
+<meta property="og:updated_time" content="2016-08-02T03:14:41.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Git 使用文档">
+<meta name="twitter:description" content="git的家目录在当前用户家目录:.git/
+
+GIT使用介绍
+
+1.git help -a    查询出git下面的功能介绍    1.1.git help +func(查询详细功能使用)
+2.git –version    查询出git当前使用的版本
+3.git config –global user.name “liangyou.qiao”    设置用户名
+4.git config –gl">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://liangyouqiao.me/2016/06/28/github/"/>
+
+  <title> Git 使用文档 | LY.Qiao </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">LY.Qiao</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Goals determine what you are going to be</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tag"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Git 使用文档
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-28T15:40:00+08:00" content="2016-06-28">
+              2016-06-28
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/工具使用/" itemprop="url" rel="index">
+                    <span itemprop="name">工具使用</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><center></center></p>
+<p><iframe name="iframe_canvas" src="http://douban.fm/partner/baidu/doubanradio" scrolling="no" frameborder="0" width="400" height="200"><br></iframe><br><br>git的家目录在当前用户家目录:.git/</p>
+<blockquote>
+<p>GIT使用介绍</p>
+</blockquote>
+<p>1.git help -a<br>    查询出git下面的功能介绍<br>    1.1.git help +func(查询详细功能使用)</p>
+<p>2.git –version<br>    查询出git当前使用的版本</p>
+<p>3.git config –global user.name “liangyou.qiao”<br>    设置用户名</p>
+<p>4.git config –global user.email “xx@qq.com”<br>    设置用户邮箱</p>
+<p>5.git config –list<br>    设置当前git config global设置的全局信息<br>    都会写到.gitconfig的文件中</p>
+<blockquote>
+<p>GIT项目初始化</p>
+</blockquote>
+<p>1.git init<br>    初始化git家目录，在当前目录创建.git/</p>
+<p>2.git add + [ filename ]<br>    添加目录到git的暂存区</p>
+<p>3.git status<br>    提交目前git的文件状态，是否有新的代码提交，或是删除</p>
+<pre><code>会显示是否有文件修改
+</code></pre><p>4.git commit -m [添加备注内容]<br>    提交object 对象存储区</p>
+<pre><code>分支中只存储了文件的目录结构，文件存储在对象存储区中
+</code></pre><p>5.git rm filename</p>
+<pre><code>删除暂存区的数据
+删除时候需要通过：
+git commit -m &quot;delete&quot;进行备注
+
+git rm filename --cache
+删除暂存区的数据，不删除源数据
+
+git rm -f filename 
+源数据也会删除    
+</code></pre><p>6.git mv</p>
+<pre><code>对暂存区的文件名进行修改
+</code></pre><p>7.git checkout </p>
+<pre><code>回滚操作
+</code></pre><p>8.git revert</p>
+<pre><code>回归上一次的提交纪录    
+如何指定回撤都哪一个版本呢？
+    git 的版本管理
+
+    0    99d65a9 delete test
+    1    0dc596e 添加第一个作业，猜数字
+    2    9dd2bf9 for the other project
+    3    6adb33f first commit
+
+
+    git revert HEAD 表示回退上一个版本,就是版本0        
+
+    git revert HEAD^ 一个^表示回退上一个版本的上一版本，也就是版本1
+
+    git revert HEAD~10 表示回退10个版本之前的版本 
+</code></pre><p>9.git log –oneline<br>    显示git的更新日志，会显示出，之前提交纪录的id</p>
+<p>10.git reset </p>
+<pre><code>git reset HEAD^ 指定1版的提交操作，并把这个操作撤回
+
+
+git reset HEAD^ --hard指定硬重置，不建议使用
+
+git reset HEAD^ --mixed
+</code></pre><blockquote>
+<p>GIT的分支</p>
+</blockquote>
+<p>git diff master..dev</p>
+<p>git branch  查看当前的分支使用的情况</p>
+<p>git branch [branchname]<br>    会创建一个新的分支</p>
+<p>git checkout [branchname] 切换分支</p>
+<p>git merge 用来合并dev分支到master分支中去</p>
+<pre><code>如果在git merge提交的时候，两个分支中相同的文件，但是做了不同的修改就不能直接提交，需要消除冲突
+
+只要把一个分支中的内容，修改成另一个的就会，就会消除冲突
+
+-no-ff -m &quot;配置内容&quot; ：禁用快速合并，需要添加备注
+</code></pre><p>git merge -m old.name new.name<br>    分支的合并</p>
+<p>封存branch分支<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">git stash 会封存当前分支的所有修改内容</div><div class="line"></div><div class="line">git stash pop 会还原封存的内容</div><div class="line"></div><div class="line">git stash list 封存的列表信息</div><div class="line"></div><div class="line">git stash apply stash@&#123;id&#125;</div><div class="line"></div><div class="line">git branch -b feature 新特性分支</div><div class="line"></div><div class="line">git branch -d feature 删除特性分支</div></pre></td></tr></table></figure></p>
+<p>git push 提交代码</p>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">提交代码到代码仓库    </div><div class="line">git push [ master ]  origin</div></pre></td></tr></table></figure>
+</code></pre><p>git pull 更新代码<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git pull origin master</div><div class="line">上述命令其实相当于git fetch 和 git merge</div><div class="line">git pull 会自动把origin master中的代码，pull下来并merge到本地分支中</div></pre></td></tr></table></figure></p>
+<p>git fetch </p>
+<pre><code>git fetch origin master
+相当于是从远程获取最新版本到本地，不会自动merge
+
+操作：
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git fetch origin master</div><div class="line">git log -p master..origin/master</div><div class="line">git merge origin/master</div></pre></td></tr></table></figure>
+</code></pre>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/github/" rel="tag">#github</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/06/27/装饰器/" rel="next" title="装饰器小叙">
+                <i class="fa fa-chevron-left"></i> 装饰器小叙
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/27/python小叙-yield各种玩法/" rel="prev" title="python小叙-yield各种玩法">
+                python小叙-yield各种玩法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Joe." />
+          <p class="site-author-name" itemprop="name">Joe.</p>
+          <p class="site-description motion-element" itemprop="description">这世界要是没有爱情，它在我们心中还会有什么意义！这就如一盏没有亮光的走马灯。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Joe.</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
