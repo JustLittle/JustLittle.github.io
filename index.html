@@ -89,7 +89,7 @@
 <meta name="description" content="这世界要是没有爱情，它在我们心中还会有什么意义！这就如一盏没有亮光的走马灯。">
 <meta property="og:type" content="website">
 <meta property="og:title" content="LY.Qiao">
-<meta property="og:url" content="https://justlittle.github.io/index.html">
+<meta property="og:url" content="http://liangyouqiao.me/index.html">
 <meta property="og:site_name" content="LY.Qiao">
 <meta property="og:description" content="这世界要是没有爱情，它在我们心中还会有什么意义！这就如一盏没有亮光的走马灯。">
 <meta name="twitter:card" content="summary">
@@ -115,7 +115,7 @@
 
 
 
-  <link rel="canonical" href="https://justlittle.github.io/"/>
+  <link rel="canonical" href="http://liangyouqiao.me/"/>
 
   <title> LY.Qiao </title>
 </head>
@@ -238,6 +238,387 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/08/03/Python内存管理/" itemprop="url">
+                  python语言特性－－－内存管理
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-03T00:00:00+08:00" content="2016-08-03">
+              2016-08-03
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/python底层/" itemprop="url" rel="index">
+                    <span itemprop="name">python底层</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="python语言特性内存管理"><a href="#python语言特性内存管理" class="headerlink" title="python语言特性内存管理"></a>python语言特性内存管理</h1><h2 id="开始于Python的函数参数传递"><a href="#开始于Python的函数参数传递" class="headerlink" title="开始于Python的函数参数传递"></a>开始于Python的函数参数传递</h2><p>python在传递的时候传递都是对象的引用</p>
+<p>对象 ＝ （可变对象，不可变的对象）</p>
+<p>可变对象 ＝ （list，dict）等<br>不可变对象 ＝ （string，tuple，number）等</p>
+<p>当对象作为参数传递给函数的时候：</p>
+<p><strong>这块需要特别注意</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">创建一个<span class="number">1</span>的对象引用，所以说a是一个引用</div><div class="line">a = <span class="number">20</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(a)</span>:</span></div><div class="line">    a= <span class="number">10</span>(这个<span class="number">2</span>实际上已经是一个新的对象了)</div><div class="line"></div><div class="line">根据函数的作用域名，在函数内部的修改不可变对象的引用的时候，对本身对象外部的引用是没有影响的</div><div class="line">但是如果外部的对象是一个可修改的对象，那么函数内部在修改这个对象引用的时候，外部对象的引用也会随之被修改</div><div class="line"></div><div class="line">所以,在对象不可变的时候：</div><div class="line">   在内部pirnt id(a)</div><div class="line">   和在外部<span class="keyword">print</span> id(a)</div><div class="line">   这两个是不一样的值</div></pre></td></tr></table></figure>
+<blockquote>
+<p>为什么会有这种现象呢？python是如何进行内存管理的呢？</p>
+</blockquote>
+<h2 id="python如何管理内存的"><a href="#python如何管理内存的" class="headerlink" title="python如何管理内存的"></a>python如何管理内存的</h2><p>从机制上说分为3个部分：</p>
+<pre><code>1.    引用计数
+2.    垃圾回收
+3.    内存池机制
+</code></pre><h2 id="那什么是python的对象引用呢？引用计数又是什么？"><a href="#那什么是python的对象引用呢？引用计数又是什么？" class="headerlink" title="那什么是python的对象引用呢？引用计数又是什么？"></a>那什么是python的对象引用呢？引用计数又是什么？</h2><h3 id="关于引用"><a href="#关于引用" class="headerlink" title="关于引用"></a>关于引用</h3><p>关于<strong>引用</strong>，个人觉的就像是一个软链接的概念，指向的内存地址是相同的</p>
+<p>如何查看是否为同一个对象的引用可以使用id()</p>
+<p>在Python中，每个对象都有存有指向该对象的引用总数，即引用计数(reference count)。</p>
+<p>我们可以使用sys包中的getrefcount()，来查看某个对象的引用计数。需要注意的是，当使用某个引用作为参数，传递给getrefcount()时，参数实际上创建了一个临时的引用。因此，getrefcount()所得到的结果，会比期望的多1。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">In [34]: from sys import getrefcount</div><div class="line"></div><div class="line">In [35]: a = [1, 2, 3]</div><div class="line"></div><div class="line">In [36]: print(getrefcount(a))</div><div class="line">2</div><div class="line"></div><div class="line">In [37]:</div><div class="line"></div><div class="line">In [37]: b = a</div><div class="line"></div><div class="line">In [38]: print(getrefcount(b))</div><div class="line">3</div><div class="line"></div><div class="line">In [39]:</div></pre></td></tr></table></figure>
+<p>所以第一次使用getrefcount(a)，得到的引用计数为2</p>
+<p>Python的一个容器对象(container)，比如表、词典等，可以包含多个对象。实际上，容器对象中包含的并不是元素对象本身，是指向各个元素对象的引用</p>
+<p>在容器的内部调用另一个对象引用的时候，另一个对象引用计数会＋1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">In [24]: a = [1, 2, 3]</div><div class="line"></div><div class="line">In [25]: print(getrefcount(a))</div><div class="line">2</div><div class="line"></div><div class="line">In [26]: b = [a, a]</div><div class="line"></div><div class="line">In [27]: print(getrefcount(a))</div><div class="line">4</div></pre></td></tr></table></figure>
+<h3 id="引用减少"><a href="#引用减少" class="headerlink" title="引用减少"></a>引用减少</h3><p>某个对象的引用计数可能减少。比如，可以使用del关键字删除某个引用:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">In [<span class="number">2</span>]: a = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</div><div class="line">In [<span class="number">3</span>]: b = a</div><div class="line">In [<span class="number">4</span>]: print(getrefcount(b))</div><div class="line"><span class="number">3</span></div><div class="line">In [<span class="number">5</span>]:</div><div class="line">In [<span class="number">5</span>]: <span class="keyword">del</span> a</div><div class="line">In [<span class="number">6</span>]: print(getrefcount(b))</div><div class="line"><span class="number">2</span></div><div class="line">In [<span class="number">7</span>]:</div></pre></td></tr></table></figure>
+<p>如果某个引用指向对象A，当这个引用被重新定向到某个其他对象B时，对象A的引用计数减少:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">In [<span class="number">19</span>]: b = <span class="string">"abc"</span></div><div class="line">In [<span class="number">20</span>]: print(getrefcount(<span class="string">"abc"</span>))</div><div class="line"><span class="number">13</span></div><div class="line">In [<span class="number">21</span>]: b = <span class="string">"abcd"</span></div><div class="line">In [<span class="number">22</span>]: print(getrefcount(<span class="string">"abc"</span>))</div><div class="line"><span class="number">12</span></div><div class="line">In [<span class="number">23</span>]:</div></pre></td></tr></table></figure>
+<h2 id="垃圾回收"><a href="#垃圾回收" class="headerlink" title="垃圾回收"></a>垃圾回收</h2><p>当Python中的对象越来越多，它们将占据越来越大的内存，他就会启动垃圾回收(garbage collection)</p>
+<p>比如某个新建对象，它被分配给某个引用，对象的引用计数变为1。如果引用被删除，对象的引用计数为0，那么该对象就可以被垃圾回收。比如下面的表:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">a = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</div><div class="line"><span class="keyword">del</span> a</div></pre></td></tr></table></figure>
+<h2 id="内存池管理"><a href="#内存池管理" class="headerlink" title="内存池管理"></a>内存池管理</h2><p>内存池管理机制，主要包括内存池以及对象缓存池</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/08/01/python小工具–无聊等待旋转符/" itemprop="url">
+                  python小工具－－－旋转的等待符
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-01T00:00:00+08:00" content="2016-08-01">
+              2016-08-01
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/python小工具/" itemprop="url" rel="index">
+                    <span itemprop="name">python小工具</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>python小工具–无聊等待旋转符</p>
+</blockquote>
+<p>有时候在等待交互的时候很无聊，就搞了一个小符号，只需要给函数加上这个deco装饰器即可，做点小记录</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"># -*-coding: utf-8-*-</div><div class="line">'''</div><div class="line">Created Time: 二  7/26 09:26:56 2016</div><div class="line">mail: liangyou.qiao@shuyun.com</div><div class="line">Author: liangyou.qiao</div><div class="line">File Name: funny.py</div><div class="line">'''</div><div class="line">import sys</div><div class="line">import time</div><div class="line">spinners = '''|/-\\'''</div><div class="line"></div><div class="line">spinpos = 0</div><div class="line"></div><div class="line"></div><div class="line">def fwrite(buf):</div><div class="line">    sys.stdout.write(buf)</div><div class="line">    sys.stdout.flush()</div><div class="line"></div><div class="line">def spin():</div><div class="line">    global spinpos</div><div class="line">    fwrite(spinners[spinpos]+"\b")</div><div class="line">    spinpos += 1</div><div class="line">    if spinpos &gt;= len(spinners):</div><div class="line">        spinpos = 0</div><div class="line"></div><div class="line">def funny()</div><div class="line">    while 1:</div><div class="line">        spin()</div></pre></td></tr></table></figure>
+<blockquote>
+<p>使用装饰器</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> functools</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">deco</span><span class="params">(func)</span>:</span></div><div class="line">	</div><div class="line"><span class="meta">	@functools.wraps(func)</span></div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">wrapper</span><span class="params">(*a,**kw)</span>:</span></div><div class="line">		<span class="keyword">print</span> <span class="string">"进入等待"</span></div><div class="line">		spin()</div><div class="line">		result = func(*a,**kw)</div><div class="line">		<span class="keyword">return</span> result</div><div class="line">	<span class="keyword">return</span> wrapper</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/08/01/leetcode-标记比对/" itemprop="url">
+                  python算法--leetcode练习题(标记比对)
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-01T00:00:00+08:00" content="2016-08-01">
+              2016-08-01
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/python算法/" itemprop="url" rel="index">
+                    <span itemprop="name">python算法</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="这是一个leetcode上面的算法题，记录这里，算是记录了"><a href="#这是一个leetcode上面的算法题，记录这里，算是记录了" class="headerlink" title="这是一个leetcode上面的算法题，记录这里，算是记录了"></a>这是一个leetcode上面的算法题，记录这里，算是记录了</h2><blockquote>
+<p>下面是题目</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">Given a pattern and a string str, find if str follows the same pattern.</div><div class="line"></div><div class="line">Here follow means a full match, such that there is a bijection between a letter in pattern and a non-empty word in str.</div><div class="line"></div><div class="line">Examples:</div><div class="line">    pattern = &quot;abba&quot;, str = &quot;dog cat cat dog&quot; should return true.</div><div class="line">    pattern = &quot;abba&quot;, str = &quot;dog cat cat fish&quot; should return false.</div><div class="line">    pattern = &quot;aaaa&quot;, str = &quot;dog cat cat dog&quot; should return false.</div><div class="line">    pattern = &quot;abba&quot;, str = &quot;dog dog dog dog&quot; should return false.</div><div class="line">    Notes:</div><div class="line">        You may assume pattern contains only lowercase letters, and str contains lowercase letters separated by a single space.</div><div class="line"></div><div class="line">        Credits:</div><div class="line">            Special thanks to @minglotus6 for adding this problem and creating all test cases.</div></pre></td></tr></table></figure>
+<h2 id="他说的是什么"><a href="#他说的是什么" class="headerlink" title="他说的是什么"></a>他说的是什么</h2><p>这个是一个简单的字符和list匹配问题，期望字符串的分布与list分布相同</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">#encoding: utf-8</span></div><div class="line"><span class="string">'''</span></div><div class="line">Created Time: 一  8/ 1 18:31:07 2016</div><div class="line">mail: liangyou.qiao@shuyun.com</div><div class="line">Author: liangyou.qiao</div><div class="line">File Name: wordPattern.py'</div><div class="line">'''</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">wordPattern</span><span class="params">(pattern, str)</span>:</span></div><div class="line"></div><div class="line">        <span class="string">"""</span></div><div class="line">        :type pattern: str</div><div class="line">        :type str: str</div><div class="line">        :rtype: bool</div><div class="line">        """</div><div class="line">        pattern_list = list(pattern)</div><div class="line">        str_list = str.split()</div><div class="line">        <span class="function"><span class="keyword">def</span> <span class="title">label</span><span class="params">(lis)</span>:</span></div><div class="line">            <span class="string">"""</span></div><div class="line">            :type lis: list</div><div class="line">            rtype: insert_lis:list</div><div class="line">            """</div><div class="line">            dic = &#123;&#125;</div><div class="line">            insert_lis = []</div><div class="line">            n = <span class="number">0</span></div><div class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> lis:</div><div class="line">                <span class="keyword">if</span> i <span class="keyword">not</span> <span class="keyword">in</span> dic:</div><div class="line">                    dic[i] = n</div><div class="line">                    n +=<span class="number">1</span></div><div class="line">                    insert_lis.append(dic[i])</div><div class="line">                <span class="keyword">else</span>:</div><div class="line">                    insert_lis.append(dic[i])</div><div class="line">            <span class="keyword">return</span> insert_lis</div><div class="line">        <span class="keyword">return</span> label(pattern_list) == label(str_list)</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</div><div class="line">    a = <span class="string">"aaba"</span></div><div class="line">    b = <span class="string">"dog cat cat fish"</span></div><div class="line">    wordPattern(a,b)</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
       
 
@@ -696,6 +1077,379 @@ git reset HEAD^ --mixed
             
               
                 
+                <a class="post-title-link" href="/2016/06/15/有序列表排序/" itemprop="url">
+                  算法练习--有序列表合并和无序列表合并
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-15T00:00:00+08:00" content="2016-06-15">
+              2016-06-15
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/python算法/" itemprop="url" rel="index">
+                    <span itemprop="name">python算法</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="有序列表合并"><a href="#有序列表合并" class="headerlink" title="有序列表合并"></a>有序列表合并</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># -*- coding: utf-8 -*-</span></div><div class="line"><span class="string">'''</span></div><div class="line">File Name: test.py</div><div class="line">Author: liangyou.qiao</div><div class="line">mail: liangyou.qiao@shuyun.com</div><div class="line">Created Time: 三  6/15 08:13:55 2016</div><div class="line"></div><div class="line">'''</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">merge</span><span class="params">(l1,l2)</span>:</span></div><div class="line">    lis = []</div><div class="line"></div><div class="line">    <span class="keyword">while</span> len(l1) &gt; <span class="number">0</span> <span class="keyword">and</span>  len(l2) &gt;<span class="number">0</span>:</div><div class="line"></div><div class="line">        <span class="keyword">if</span> l1[<span class="number">0</span>] &gt; l2[<span class="number">0</span>]:</div><div class="line">            lis.append(l2[<span class="number">0</span>])</div><div class="line">            <span class="keyword">del</span>(l2[<span class="number">0</span>])</div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            lis.append(l1[<span class="number">0</span>])</div><div class="line">            <span class="keyword">del</span>(l1[<span class="number">0</span>])</div><div class="line"></div><div class="line">    lis.extend(l1)</div><div class="line">    lis.extend(l2)</div><div class="line"></div><div class="line">    <span class="keyword">return</span> lis</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">lis_1 = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">4</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">23</span>,<span class="number">233</span>,<span class="number">2231</span>]</div><div class="line"></div><div class="line">lis_2 = [<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">10</span>,<span class="number">11</span>,<span class="number">223</span>,<span class="number">333</span>,<span class="number">444</span>,<span class="number">555</span>,<span class="number">556</span>]</div><div class="line"></div><div class="line"><span class="keyword">print</span> merge(lis_1,lis_2)</div></pre></td></tr></table></figure>
+<h2 id="关于无序列表合进行有序合并"><a href="#关于无序列表合进行有序合并" class="headerlink" title="关于无序列表合进行有序合并"></a>关于无序列表合进行有序合并</h2><p>想到的方案，只有先去排序，在合并</p>
+<p>之前想到一种方案,就是使用最小堆去做，但是没有成功，代码也贴出</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># -*- coding: utf-8 -*-</span></div><div class="line"><span class="string">'''</span></div><div class="line">File Name: 无序列表合并.py</div><div class="line">Author: liangyou.qiao</div><div class="line">mail: liangyou.qiao@shuyun.com</div><div class="line">Created Time: 三  6/15 08:46:54 2016</div><div class="line">'''</div><div class="line"></div><div class="line"></div><div class="line"><span class="string">'''</span></div><div class="line">    有待考证，不成立</div><div class="line">'''</div><div class="line"></div><div class="line"></div><div class="line">lis_1 = [<span class="number">2</span>,<span class="number">33</span>,<span class="number">2</span>,<span class="number">111</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">55</span>,<span class="number">222</span>,<span class="number">2223</span>,<span class="number">33</span>]</div><div class="line">lis_2 = [<span class="number">10</span>,<span class="number">22</span>,<span class="number">11</span>,<span class="number">23</span>,<span class="number">44</span>,<span class="number">556</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">11</span>,<span class="number">222</span>,<span class="number">333</span>]</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">import</span> heapq</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">no_merge</span><span class="params">(lis_1,lis_2)</span>:</span></div><div class="line"></div><div class="line">    heapq.heapify(lis_1)</div><div class="line">    heapq.heapify(lis_2)</div><div class="line">    lis = []</div><div class="line">    <span class="keyword">while</span> len(lis_1) &gt; <span class="number">0</span> <span class="keyword">and</span> len(lis_2) &gt; <span class="number">0</span>:</div><div class="line"></div><div class="line">        <span class="keyword">if</span> lis_1[<span class="number">0</span>] &gt; lis_2[<span class="number">0</span>]:</div><div class="line">            num = heapq.heappop(lis_2)</div><div class="line">            lis.append(num)</div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            num = heapq.heappop(lis_1)</div><div class="line">            lis.append(num)</div><div class="line"></div><div class="line">    <span class="keyword">if</span> len(lis_1) &gt;<span class="number">0</span>:</div><div class="line">        lis+ sorted(lis_2)</div><div class="line"></div><div class="line"></div><div class="line">    <span class="keyword">if</span> len(lis_2) &gt;<span class="number">0</span>:</div><div class="line">        lis + sorted(lis_2)</div><div class="line"></div><div class="line"></div><div class="line">    <span class="keyword">return</span> lis</div><div class="line"></div><div class="line"><span class="keyword">print</span> no_merge(lis_1,lis_2)</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/05/19/pic/" itemprop="url">
+                  python小工具图片字符串转化
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-05-19T00:00:00+08:00" content="2016-05-19">
+              2016-05-19
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/python小工具/" itemprop="url" rel="index">
+                    <span itemprop="name">python小工具</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<h1 id="python小工具图片字符串转化"><a href="#python小工具图片字符串转化" class="headerlink" title="python小工具图片字符串转化"></a>python小工具图片字符串转化</h1><blockquote>
+<p>写在前面</p>
+</blockquote>
+<p>这是一个python将文件转化成字符串的小工具，不过解析的质量比较差，是根据像素，来填充字符的</p>
+<blockquote>
+<p>这里是代码</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line">    <span class="comment"># -*- coding: utf-8 -*-</span></div><div class="line"><span class="string">'''</span></div><div class="line">File Name: picpy.py</div><div class="line">Author: liangyou.qiao</div><div class="line">mail: liangyou.qiao@shuyun.com</div><div class="line">Created Time: 四  5/19 10:25:59 2016</div><div class="line">'''</div><div class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</div><div class="line">ASCII_CHARS = [ <span class="string">'#'</span>, <span class="string">'?'</span>, <span class="string">'%'</span>, <span class="string">'.'</span>, <span class="string">'S'</span>, <span class="string">'+'</span>, <span class="string">'.'</span>, <span class="string">'*'</span>, <span class="string">':'</span>, <span class="string">','</span>, <span class="string">'@'</span>]</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">scale_image</span><span class="params">(image, new_width=<span class="number">50</span>)</span>:</span></div><div class="line">    (original_width, original_height) = image.size</div><div class="line">    aspect_ratio = original_height/float(original_width)</div><div class="line">    new_height = int(aspect_ratio * new_width)</div><div class="line">    new_image = image.resize((new_width, new_height))</div><div class="line">    <span class="keyword">return</span> new_image</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">convert_to_grayscale</span><span class="params">(image)</span>:</span></div><div class="line">    <span class="keyword">return</span> image.convert(<span class="string">'L'</span>)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">map_pixels_to_ascii_chars</span><span class="params">(image, range_width=<span class="number">50</span>)</span>:</span></div><div class="line">    pixels_in_image = list(image.getdata())</div><div class="line">    pixels_to_chars = [ASCII_CHARS[pixel_value/range_width] <span class="keyword">for</span> pixel_value <span class="keyword">in</span></div><div class="line">    pixels_in_image]</div><div class="line">    <span class="keyword">return</span> <span class="string">""</span>.join(pixels_to_chars)</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">convert_image_to_ascii</span><span class="params">(image, new_width=<span class="number">50</span>)</span>:</span></div><div class="line">    image = scale_image(image)</div><div class="line">    image = convert_to_grayscale(image)</div><div class="line">    pixels_to_chars = map_pixels_to_ascii_chars(image)</div><div class="line">    len_pixels_to_chars = len(pixels_to_chars)</div><div class="line">    image_ascii = [pixels_to_chars[index: index + new_width] <span class="keyword">for</span> index <span class="keyword">in</span></div><div class="line">    xrange(<span class="number">0</span>, len_pixels_to_chars, new_width)]</div><div class="line">    <span class="keyword">return</span> <span class="string">"\n"</span>.join(image_ascii)</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">handle_image_conversion</span><span class="params">(image_filepath)</span>:</span></div><div class="line">    image = <span class="keyword">None</span></div><div class="line">    <span class="keyword">try</span>:</div><div class="line">        image = Image.open(image_filepath)</div><div class="line">    <span class="keyword">except</span> Exception, e:</div><div class="line">        <span class="keyword">print</span> <span class="string">"Unable to open image file &#123;image_filepath&#125;."</span>.format(image_filepath=image_filepath)</div><div class="line">        <span class="keyword">print</span> e</div><div class="line">        <span class="keyword">return</span></div><div class="line"></div><div class="line">    image_ascii = convert_image_to_ascii(image)</div><div class="line">    <span class="keyword">print</span> image_ascii</div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__==<span class="string">'__main__'</span>:</div><div class="line">    <span class="keyword">import</span> sys</div><div class="line">    image_file_path = sys.argv[<span class="number">1</span>]</div><div class="line">    handle_image_conversion(image_file_path)</div></pre></td></tr></table></figure>
+<blockquote>
+<p>看看</p>
+</blockquote>
+<iframe height="300" width="300" src="http://7xsx86.com1.z0.glb.clouddn.com/pic.gif">
+
+</iframe>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/05/01/观察者模式/" itemprop="url">
+                  python知识积累与提炼（设计模式）－－－观察者模式
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-05-01T00:00:00+08:00" content="2016-05-01">
+              2016-05-01
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/python知识积累与提炼/" itemprop="url" rel="index">
+                    <span itemprop="name">python知识积累与提炼</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>什么是观察者模式？</p>
+</blockquote>
+<p>摘取自<a href="http://baike.baidu.com/link?url=YxrJafvBy80ImMJqNEz1PqezLhzpe1bNNxikYe8GQt-EluyQByTnbEVK9Mya1_6aMJFsGmrBhsRCZhN99okWSq" target="_blank" rel="external">百度百科</a>:<br>观察者模式（有时又被称为发布（publish ）-订阅（Subscribe）模式、模型-视图（View）模式、源-收听者(Listener)模式或从属者模式）是软件设计模式的一种。在此种模式中，一个目标物件管理所有相依于它的观察者物件，并且在它本身的状态改变时主动发出通知。这通常透过呼叫各观察者所提供的方法来实现。此种模式通常被用来实现事件处理系统。</p>
+<p><strong>观察者</strong><br>（Observer）将自己注册到被观察对象（Subject）中，被观察对象将观察者存放在一个容器（Container）里。<br><strong>被观察</strong><br>被观察对象发生了某种变化（如图中的SomeChange），从容器中得到所有注册过的观察者，将变化通知观察者。</p>
+<p><strong>撤销观察</strong><br>观察者告诉被观察者要撤销观察，被观察者从容器中将观察者去除。</p>
+<blockquote>
+<p>开始设计</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Observer</span><span class="params">(object)</span>:</span></div><div class="line">    <span class="string">'''</span></div><div class="line">    被观察者抽象类</div><div class="line">    '''</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">update</span><span class="params">(self,Subscription)</span>:</span></div><div class="line">    <span class="string">'''</span></div><div class="line">    被观察者提供的更新接口</div><div class="line">    '''</div><div class="line">        <span class="keyword">return</span></div><div class="line"></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">send_content</span><span class="params">(self)</span>:</span></div><div class="line">    <span class="string">'''</span></div><div class="line">    获取新的数据</div><div class="line">    '''</div><div class="line">        <span class="keyword">return</span></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Subject</span><span class="params">(object)</span>:</span></div><div class="line">    <span class="string">'''</span></div><div class="line">    观察者抽象类	</div><div class="line">    '''</div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">registerObserver</span><span class="params">(self, observer)</span>:</span></div><div class="line">    <span class="string">'''</span></div><div class="line">    被观察者的注册接口</div><div class="line">    '''</div><div class="line">        </div><div class="line">        <span class="keyword">return</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">removeObserver</span><span class="params">(self, observer)</span>:</span></div><div class="line">    <span class="string">'''</span></div><div class="line">    移除被观察者</div><div class="line">    '''</div><div class="line">        <span class="keyword">return</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">notifyObservers</span><span class="params">(self)</span>:</span></div><div class="line">    <span class="string">'''</span></div><div class="line">    通知观察者</div><div class="line">    '''</div><div class="line">        <span class="keyword">return</span></div></pre></td></tr></table></figure>
+<blockquote>
+<p>开始继承</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">PostOffice</span><span class="params">(Subject)</span>:</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></div><div class="line"></div><div class="line">        self.observers = []</div><div class="line"></div><div class="line">        self.Subscription = <span class="keyword">None</span></div><div class="line"></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">registerObserver</span><span class="params">(self,observer)</span>:</span></div><div class="line">        <span class="string">'''</span></div><div class="line">        添加注册者</div><div class="line">        '''</div><div class="line">        self.observers.append(observer)</div><div class="line">        <span class="keyword">return</span> <span class="keyword">None</span></div><div class="line"></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">removeObserver</span><span class="params">(self,observer)</span>:</span></div><div class="line">        <span class="string">'''</span></div><div class="line">        删除注册者</div><div class="line">        '''</div><div class="line">        self.observers.remove(observer)</div><div class="line">        <span class="keyword">return</span> <span class="keyword">None</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">notifyObserver</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="string">'''</span></div><div class="line">        更新所有注册者</div><div class="line">        '''</div><div class="line">        <span class="keyword">for</span> observer <span class="keyword">in</span> self.observers:</div><div class="line">            observer.update(self.Subscription)</div><div class="line">        <span class="keyword">return</span> <span class="keyword">None</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">UpdateAllObserver</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="string">'''</span></div><div class="line">        执行更新</div><div class="line">        '''</div><div class="line">        self.notifyObserver()</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">setSubscription</span><span class="params">(self,Subscription)</span>:</span></div><div class="line">        <span class="string">'''</span></div><div class="line">        推送</div><div class="line">        '''</div><div class="line">        self.Subscription = Subscription</div><div class="line">        self.UpdateAllObserver()</div><div class="line"></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">SH_Publish</span><span class="params">(Observer)</span>:</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,PostOffice)</span>:</span></div><div class="line"></div><div class="line">        self.PostOffice = PostOffice</div><div class="line">        self.Subscription = <span class="keyword">None</span></div><div class="line">        PostOffice.registerObserver(self)</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">update</span><span class="params">(self,Subscription)</span>:</span></div><div class="line">        self.Subscription = Subscription</div><div class="line">        self.send_content()</div><div class="line">        <span class="keyword">return</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">send_content</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="keyword">if</span> self.Subscription <span class="keyword">is</span> <span class="keyword">None</span>:</div><div class="line">            <span class="keyword">print</span> <span class="string">"Shanghai Publishing have no Subscription send to you"</span></div><div class="line">            <span class="keyword">return</span> <span class="keyword">None</span></div><div class="line">        <span class="keyword">print</span> <span class="string">"this is Shanghai Pubishing ，we will send the %s to you at 2 days"</span>%self.Subscription</div><div class="line"></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Bj_Publish</span><span class="params">(Observer)</span>:</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,PostOffice)</span>:</span></div><div class="line"></div><div class="line">        self.PostOffice = PostOffice</div><div class="line">        self.Subscription = <span class="keyword">None</span></div><div class="line">        PostOffice.registerObserver(self)</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">update</span><span class="params">(self,Subscription)</span>:</span></div><div class="line">        self.Subscription = Subscription</div><div class="line">        self.send_content()</div><div class="line">        <span class="keyword">return</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">send_content</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="keyword">if</span> self.Subscription <span class="keyword">is</span> <span class="keyword">None</span>:</div><div class="line">            <span class="keyword">print</span> <span class="string">"Beijing Publishing have no Subscription send to you"</span></div><div class="line">            <span class="keyword">return</span> <span class="keyword">None</span></div><div class="line">        <span class="keyword">print</span> <span class="string">"this is BeiJing Pubishing ，we will send the %s to you at 3 days"</span>%self.Subscription</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">client</span><span class="params">()</span>:</span></div><div class="line"></div><div class="line">    Post = PostOffice()</div><div class="line">    sh = SH_Publish(Post)</div><div class="line">    <span class="keyword">print</span> <span class="string">"-----1-----"</span></div><div class="line">    sh.send_content()</div><div class="line">    <span class="keyword">print</span> <span class="string">"-----2-----"</span></div><div class="line">    Post.setSubscription(<span class="string">"litte red girl cookbook"</span>)</div><div class="line">    <span class="keyword">print</span> <span class="string">"上海:"</span>,sh.Subscription</div><div class="line">    bj = Bj_Publish(Post)</div><div class="line">    <span class="keyword">print</span> <span class="string">"-----3-----"</span></div><div class="line">    Post.setSubscription(<span class="string">"The Harry Potter "</span>)</div><div class="line">    <span class="keyword">print</span> <span class="string">"上海:"</span>,sh.Subscription</div><div class="line">    <span class="keyword">print</span> <span class="string">"北京:"</span>,bj.Subscription</div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</div><div class="line">	client()</div></pre></td></tr></table></figure>
+<blockquote>
+<p>问题也来了</p>
+</blockquote>
+<pre><code>被观察者的对象在注册到观察者的实例的上面的时候，如果需要重新定义一个继承与观察者抽象类的另一个子类的时候，就需要更改代码了,这个工作量是很大的，如果方便快捷的更改观察者呢？
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/03/28/python的一个好用的加color小工具/" itemprop="url">
                   python的一个好用的加color小工具
                 </a>
@@ -867,6 +1621,10 @@ git reset HEAD^ --mixed
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
 
 
           </div>
@@ -905,7 +1663,7 @@ git reset HEAD^ --mixed
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-count">15</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -913,7 +1671,7 @@ git reset HEAD^ --mixed
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -922,7 +1680,7 @@ git reset HEAD^ --mixed
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
