@@ -551,6 +551,124 @@
             
               
                 
+                <a class="post-title-link" href="/2016/08/01/leetcode-标记比对/" itemprop="url">
+                  python算法--leetcode练习题(标记比对)
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-01T00:00:00+08:00" content="2016-08-01">
+              2016-08-01
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/python算法/" itemprop="url" rel="index">
+                    <span itemprop="name">python算法</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="这是一个leetcode上面的算法题，记录这里，算是记录了"><a href="#这是一个leetcode上面的算法题，记录这里，算是记录了" class="headerlink" title="这是一个leetcode上面的算法题，记录这里，算是记录了"></a>这是一个leetcode上面的算法题，记录这里，算是记录了</h2><blockquote>
+<p>下面是题目</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">Given a pattern and a string str, find if str follows the same pattern.</div><div class="line"></div><div class="line">Here follow means a full match, such that there is a bijection between a letter in pattern and a non-empty word in str.</div><div class="line"></div><div class="line">Examples:</div><div class="line">    pattern = &quot;abba&quot;, str = &quot;dog cat cat dog&quot; should return true.</div><div class="line">    pattern = &quot;abba&quot;, str = &quot;dog cat cat fish&quot; should return false.</div><div class="line">    pattern = &quot;aaaa&quot;, str = &quot;dog cat cat dog&quot; should return false.</div><div class="line">    pattern = &quot;abba&quot;, str = &quot;dog dog dog dog&quot; should return false.</div><div class="line">    Notes:</div><div class="line">        You may assume pattern contains only lowercase letters, and str contains lowercase letters separated by a single space.</div><div class="line"></div><div class="line">        Credits:</div><div class="line">            Special thanks to @minglotus6 for adding this problem and creating all test cases.</div></pre></td></tr></table></figure>
+<h2 id="他说的是什么"><a href="#他说的是什么" class="headerlink" title="他说的是什么"></a>他说的是什么</h2><p>这个是一个简单的字符和list匹配问题，期望字符串的分布与list分布相同</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">#encoding: utf-8</span></div><div class="line"><span class="string">'''</span></div><div class="line">Created Time: 一  8/ 1 18:31:07 2016</div><div class="line">mail: liangyou.qiao@shuyun.com</div><div class="line">Author: liangyou.qiao</div><div class="line">File Name: wordPattern.py'</div><div class="line">'''</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">wordPattern</span><span class="params">(pattern, str)</span>:</span></div><div class="line"></div><div class="line">        <span class="string">"""</span></div><div class="line">        :type pattern: str</div><div class="line">        :type str: str</div><div class="line">        :rtype: bool</div><div class="line">        """</div><div class="line">        pattern_list = list(pattern)</div><div class="line">        str_list = str.split()</div><div class="line">        <span class="function"><span class="keyword">def</span> <span class="title">label</span><span class="params">(lis)</span>:</span></div><div class="line">            <span class="string">"""</span></div><div class="line">            :type lis: list</div><div class="line">            rtype: insert_lis:list</div><div class="line">            """</div><div class="line">            dic = &#123;&#125;</div><div class="line">            insert_lis = []</div><div class="line">            n = <span class="number">0</span></div><div class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> lis:</div><div class="line">                <span class="keyword">if</span> i <span class="keyword">not</span> <span class="keyword">in</span> dic:</div><div class="line">                    dic[i] = n</div><div class="line">                    n +=<span class="number">1</span></div><div class="line">                    insert_lis.append(dic[i])</div><div class="line">                <span class="keyword">else</span>:</div><div class="line">                    insert_lis.append(dic[i])</div><div class="line">            <span class="keyword">return</span> insert_lis</div><div class="line">        <span class="keyword">return</span> label(pattern_list) == label(str_list)</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</div><div class="line">    a = <span class="string">"aaba"</span></div><div class="line">    b = <span class="string">"dog cat cat fish"</span></div><div class="line">    wordPattern(a,b)</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/08/01/python小工具–无聊等待旋转符/" itemprop="url">
                   python小工具－－－旋转的等待符
                 </a>
@@ -623,124 +741,6 @@
 <p>使用装饰器</p>
 </blockquote>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> functools</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">deco</span><span class="params">(func)</span>:</span></div><div class="line">	</div><div class="line"><span class="meta">	@functools.wraps(func)</span></div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">wrapper</span><span class="params">(*a,**kw)</span>:</span></div><div class="line">		<span class="keyword">print</span> <span class="string">"进入等待"</span></div><div class="line">		spin()</div><div class="line">		result = func(*a,**kw)</div><div class="line">		<span class="keyword">return</span> result</div><div class="line">	<span class="keyword">return</span> wrapper</div></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/01/leetcode-标记比对/" itemprop="url">
-                  python算法--leetcode练习题(标记比对)
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-01T00:00:00+08:00" content="2016-08-01">
-              2016-08-01
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/python算法/" itemprop="url" rel="index">
-                    <span itemprop="name">python算法</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="这是一个leetcode上面的算法题，记录这里，算是记录了"><a href="#这是一个leetcode上面的算法题，记录这里，算是记录了" class="headerlink" title="这是一个leetcode上面的算法题，记录这里，算是记录了"></a>这是一个leetcode上面的算法题，记录这里，算是记录了</h2><blockquote>
-<p>下面是题目</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">Given a pattern and a string str, find if str follows the same pattern.</div><div class="line"></div><div class="line">Here follow means a full match, such that there is a bijection between a letter in pattern and a non-empty word in str.</div><div class="line"></div><div class="line">Examples:</div><div class="line">    pattern = &quot;abba&quot;, str = &quot;dog cat cat dog&quot; should return true.</div><div class="line">    pattern = &quot;abba&quot;, str = &quot;dog cat cat fish&quot; should return false.</div><div class="line">    pattern = &quot;aaaa&quot;, str = &quot;dog cat cat dog&quot; should return false.</div><div class="line">    pattern = &quot;abba&quot;, str = &quot;dog dog dog dog&quot; should return false.</div><div class="line">    Notes:</div><div class="line">        You may assume pattern contains only lowercase letters, and str contains lowercase letters separated by a single space.</div><div class="line"></div><div class="line">        Credits:</div><div class="line">            Special thanks to @minglotus6 for adding this problem and creating all test cases.</div></pre></td></tr></table></figure>
-<h2 id="他说的是什么"><a href="#他说的是什么" class="headerlink" title="他说的是什么"></a>他说的是什么</h2><p>这个是一个简单的字符和list匹配问题，期望字符串的分布与list分布相同</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">#encoding: utf-8</span></div><div class="line"><span class="string">'''</span></div><div class="line">Created Time: 一  8/ 1 18:31:07 2016</div><div class="line">mail: liangyou.qiao@shuyun.com</div><div class="line">Author: liangyou.qiao</div><div class="line">File Name: wordPattern.py'</div><div class="line">'''</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">wordPattern</span><span class="params">(pattern, str)</span>:</span></div><div class="line"></div><div class="line">        <span class="string">"""</span></div><div class="line">        :type pattern: str</div><div class="line">        :type str: str</div><div class="line">        :rtype: bool</div><div class="line">        """</div><div class="line">        pattern_list = list(pattern)</div><div class="line">        str_list = str.split()</div><div class="line">        <span class="function"><span class="keyword">def</span> <span class="title">label</span><span class="params">(lis)</span>:</span></div><div class="line">            <span class="string">"""</span></div><div class="line">            :type lis: list</div><div class="line">            rtype: insert_lis:list</div><div class="line">            """</div><div class="line">            dic = &#123;&#125;</div><div class="line">            insert_lis = []</div><div class="line">            n = <span class="number">0</span></div><div class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> lis:</div><div class="line">                <span class="keyword">if</span> i <span class="keyword">not</span> <span class="keyword">in</span> dic:</div><div class="line">                    dic[i] = n</div><div class="line">                    n +=<span class="number">1</span></div><div class="line">                    insert_lis.append(dic[i])</div><div class="line">                <span class="keyword">else</span>:</div><div class="line">                    insert_lis.append(dic[i])</div><div class="line">            <span class="keyword">return</span> insert_lis</div><div class="line">        <span class="keyword">return</span> label(pattern_list) == label(str_list)</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</div><div class="line">    a = <span class="string">"aaba"</span></div><div class="line">    b = <span class="string">"dog cat cat fish"</span></div><div class="line">    wordPattern(a,b)</div></pre></td></tr></table></figure>
 
           
         
